@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="OwnedBooksWindow" Height="450" Width="800">
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.25*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="9*"/>
+
+        </Grid.RowDefinitions>
         
+
+        <Button Content="Add New" Grid.Column="4" Click="Button_Click" />
+
+        <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible"/>
+
+        <Frame x:Name="NewItemForm" Content="Frame" Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible">
+            
+        </Frame>
+
+
     </Grid>
 </Window>

@@ -197,6 +197,7 @@ namespace FirstTest
         {
             OwnedBooksWindow OwnedBooks = new OwnedBooksWindow();
             OwnedBooks.ShowDialog();
+            
         }
     }
 }

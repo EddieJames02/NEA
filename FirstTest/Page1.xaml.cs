@@ -10,27 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.OleDb;
 
 namespace FirstTest
 {
     /// <summary>
-    /// Interaction logic for OwnedBooksWindow.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class OwnedBooksWindow : Window
+    public partial class Page1 : Page
     {
-        public OwnedBooksWindow()
+        public Page1()
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NewItemForm.Content = new Page1();
-
-        }
     }
-
-
 }
