@@ -1,0 +1,54 @@
+﻿<Window x:Class="FirstTest.SearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstTest"
+        mc:Ignorable="d"
+        Title="SearchWindow" Height="450" Width="800" MinWidth="620" >
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="H:\My Pictures\GreyBackground.png"/>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" MinWidth="40px"/>
+            <ColumnDefinition Width="1*" MinWidth="75px"/>
+            <ColumnDefinition Width="1*" MinWidth="40px"/>
+            <ColumnDefinition Width="1*" MinWidth="90px"/>
+            <ColumnDefinition Width="1*" MinWidth="40px"/>
+            <ColumnDefinition Width="1*" MinWidth="110px"/>
+            <ColumnDefinition Width="1*" MinWidth="40px"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*" MaxHeight="30px" MinHeight="30px"/>
+            <RowDefinition Height="0.25*" MaxHeight="30px" MinHeight="30px"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="TitleButton" Content="" Grid.Row="0" Grid.Column="0" Background="White" Margin="0,0,5,0" Click="TitleButton_Click" Width="22" Height="20" HorizontalAlignment="Right"/>
+
+        <Label Content="Book Title" Grid.Row="0" Grid.Column="1" FontSize="14"/>
+
+        <Button x:Name="AuthorButton" Content="" Grid.Row="0" Grid.Column="2" Margin="0,0,5,0"  Background="White" HorizontalAlignment="Right" Width="22" Click="AuthorButton_Click" Height="20"/>
+
+        <Label Content="Book Author" Grid.Row="0" Grid.Column="3" FontSize="14"/>
+
+        <Button x:Name="PublisherButton" Content="" Grid.Row="0" Grid.Column="4" Margin="0,0,5,0"  Background="White" Click="PublisherButton_Click" Width="22" Height="20" HorizontalAlignment="Right"/>
+
+        <Label Content="Book publisher" Grid.Row="0" Grid.Column="5" FontSize="14"/>
+
+
+
+
+
+        <TextBox x:Name="SearchBox" Text="" Background="White" Grid.ColumnSpan="7" TextChanged="SearchBox_TextChanged" Grid.Row="1" Margin="5" MinWidth="230px"/>
+
+        
+
+        <ListBox x:Name="SearchResults" Grid.Row="2" Grid.ColumnSpan="7" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="5" Background="#00DDDDDD" MouseDoubleClick="SearchResults_MouseDoubleClick" MinWidth="250px" />
+
+    </Grid>
+</Window>

@@ -1,0 +1,21 @@
+-reformatting MainWindow Grid
+-Implementing necessary buttons
+
+- "Show All" design/Development process; Grid, Text, buttons ( X button, visibilty) , functionality
+- the order by functionality
+
+- "search" design/ development process; Grid, Text, buttons, functionality
+- the filtering system
+
+- Search List double click event: include additions to book.cs class file
+
+
+Grid Problems:
+- minimizing/ maximizing current window not scaling objects
+- window dimensions needed limiting.
+- Realignment to allow for new additions in the design.   
+ 
+
+
+  
+

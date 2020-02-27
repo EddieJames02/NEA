@@ -1,0 +1,59 @@
+﻿<Window x:Name="WindowMain" x:Class="FirstTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstTest"
+        mc:Ignorable="d"
+        Title="Menu" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="H:\My Pictures\GreyBackground.png" />
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.25*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="9*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <ImageBrush x:Key="x" ImageSource="https://img.icons8.com/ios/1600/xbox-x.png" Stretch="Uniform"/>
+        </Grid.Resources>
+
+        <Button Content="Show All" Click="ShowAll_Click" Grid.Row="0" Grid.Column="2" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent" />
+
+        <ComboBox Name="cmbSort" Grid.Row="0" Grid.Column="0" Background="#00DDDDDD" SelectionChanged="ComboBox_SelectionChanged"  >
+            <ComboBoxItem Content="Publisher" HorizontalAlignment="Left" Width="148" />
+            <ComboBoxItem Content="Author" HorizontalAlignment="Left" Width="158"/>
+            <ComboBoxItem Content="Name A-Z" HorizontalAlignment="Left" Width="158"/>
+            <ComboBoxItem Content="Name Z-A" HorizontalAlignment="Left" Width="158"/>
+            <ComboBoxItem Content="Finished Books" HorizontalAlignment="Left" Width="158"/>
+            <ComboBoxItem Content="ComboBoxItem" HorizontalAlignment="Left" Width="158"/>
+        </ComboBox>
+
+        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="99"  Height="25"/>
+
+        <Button Content="Scan" Grid.Row="0" Grid.Column="3" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
+        
+        <Button x:Name="OwnedBooks" Content="Owned Books" Grid.Row="0" Grid.Column="1" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent" Click="OwnedBooks_Click"/>
+
+        <ListBox x:Name="lstBookList" Grid.Row="2" Grid.ColumnSpan="6" Visibility="Hidden" MinWidth="500" MouseDoubleClick="lstBookList_MouseDoubleClick" Background="Transparent" BorderBrush="#00ABADB3"  >
+             
+
+        </ListBox>
+        <Button x:Name="BookSearch" Content="Search Books" Grid.Column="4" Click="Button_Click"  Grid.Row="0" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
+
+        <Button Name="CloseList" FontSize="30" Grid.Column="5"  Visibility="Hidden" Click="CloseList_Click" BorderThickness="0" Grid.Row="1" Background="{StaticResource x}"/>
+    </Grid>
+</Window>
