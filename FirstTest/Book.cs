@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FirstTest
 {
-    class Book : ScannedItem 
+    class Book : ScannedItem   
     {
         int BookID;
         string BookTitle;
