@@ -29,9 +29,9 @@
 
         <TextBox x:Name="BookInfoDisplay1"  TextWrapping="Wrap" Margin="10,10,10,10" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Background="{x:Null}" />
         <Button Grid.Column="0" Grid.Row="0" Margin="20,10,20,10">
-            <Button.Background>
+            <!--<Button.Background>
                 <ImageBrush ImageSource="H:\My Pictures\Transparent star.png"/>
-            </Button.Background>
+            </Button.Background>-->
         </Button>
 
 

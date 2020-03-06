@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="Menu" Height="450" Width="800">
     <Grid>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="H:\My Pictures\GreyBackground.png" />
-        </Grid.Background>
+        </Grid.Background>-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

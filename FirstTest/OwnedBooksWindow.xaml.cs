@@ -27,7 +27,8 @@ namespace FirstTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NewItemForm.Content = new Page1();
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.ShowDialog();
 
         }
     }

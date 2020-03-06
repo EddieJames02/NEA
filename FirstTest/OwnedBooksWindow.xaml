@@ -25,13 +25,12 @@
         </Grid.RowDefinitions>
         
 
-        <Button Content="Add New" Grid.Column="4" Click="Button_Click" />
+        <Button Content="Add New" Grid.Column="3"  />
+        <Button Content="Log In / Sign up" Grid.Column="4" Click="Button_Click" />
 
         <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible"/>
 
-        <Frame x:Name="NewItemForm" Content="Frame" Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible">
-            
-        </Frame>
+        
 
 
     </Grid>

@@ -1,0 +1,52 @@
+﻿<Window x:Class="FirstTest.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstTest"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        
+        
+        <ListBox x:Name="PreviousAccountsList" Margin="10,10,10,10"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="7"/>
+        <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Previous Accounts"  FontSize="24" TextAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        
+        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Username:" FontSize="24" Grid.Row="0" Grid.Column="1"/>
+        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Password:" FontSize="24" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Confirm Password:" FontSize="24" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="First Name:" FontSize="24" Grid.Row="3" Grid.Column="1"/>
+        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Last Name:" FontSize="24" Grid.Row="4" Grid.Column="1"/>
+
+        <TextBox x:Name="UsernameEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="2" TextChanged="UsernameEntry_TextChanged"/>
+        <TextBox x:Name="PasswordEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="1" Grid.Column="2" TextChanged="PasswordEntry_TextChanged"/>
+        <TextBox x:Name="PasswordConEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="2" Grid.Column="2" TextChanged="PasswordConEntry_TextChanged"/>
+        <TextBox x:Name="FirstEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="3" Grid.Column="2" TextChanged="FirstEntry_TextChanged"/>
+        <TextBox x:Name="LastEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="2" TextChanged="LastEntry_TextChanged"/>
+
+        <TextBlock  Margin="10,10" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" TextAlignment="Center" Foreground="Red" ><Run Text="Login not recognized. Please try again or sign up if you are a first time user."/></TextBlock>
+
+        <Button Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10"/>
+        <Button Content="sign up" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" />
+
+
+    </Grid>
+</Window>
