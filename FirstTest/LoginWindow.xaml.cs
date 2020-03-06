@@ -23,38 +23,17 @@ namespace FirstTest
         {
             InitializeComponent();
         }
-        string EnteredUser = "6";
-        string EnteredPassword = "";
-        string EnteredFirst = "";
-        string EnteredLast = "";
-
-        User TempUser = new User(EnteredUser, EnteredPassword, EnteredFirst, EnteredLast);
 
 
-        //public void UsernameEntry_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    string EnteredUser = UsernameEntry.Text; 
-        //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string EnteredUser = UsernameEntry.Text;
+            string EnteredPassword = PasswordEntry.Text;
+            string EnteredFirst = FirstEntry.Text;
+            string EnteredLast = LastEntry.Text;
 
-        //private void PasswordEntry_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    string EnteredPassword = PasswordEntry.Text;
-        //}
-
-        //private void PasswordConEntry_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    string EnteredPasswordCon = PasswordConEntry.Text;
-        //}
-
-        //private void FirstEntry_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    string EnteredFirst = FirstEntry.Text;
-        //}
-
-        //private void LastEntry_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    string EnteredLast = LastEntry.Text;
-        //}
+            User TempUser = new User(EnteredUser, EnteredPassword, EnteredFirst, EnteredLast);
+        }
 
     }
 }

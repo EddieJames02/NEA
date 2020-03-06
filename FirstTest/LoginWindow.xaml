@@ -44,7 +44,7 @@
 
         <TextBlock  Margin="10,10" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" TextAlignment="Center" Foreground="Red" ><Run Text="Login not recognized. Please try again or sign up if you are a first time user."/></TextBlock>
 
-        <Button Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10"/>
+        <Button Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click"/>
         <Button Content="sign up" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" />
 
 
