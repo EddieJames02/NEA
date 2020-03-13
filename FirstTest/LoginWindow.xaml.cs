@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.OleDb;
 
 namespace FirstTest
 {
@@ -24,6 +25,8 @@ namespace FirstTest
             InitializeComponent();
         }
 
+        //OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =Books.accdb");
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -32,7 +35,17 @@ namespace FirstTest
             string EnteredFirst = FirstEntry.Text;
             string EnteredLast = LastEntry.Text;
 
-            User TempUser = new User(EnteredUser, EnteredPassword, EnteredFirst, EnteredLast);
+            OleDbCommand InsertCmd = new OleDbCommand("insert into TblUsers ([Username], [Password], [FirstName], [LastName]) values ('" + UsernameEntry.Text + "', '" + PasswordEntry.Text + "', '" + FirstEntry.Text + "','" + LastEntry.Text + "')", connect);
+            //InsertCmd.Parameters.AddWithValue("@Username", UsernameEntry.Text);
+            //InsertCmd.Parameters.AddWithValue("@Password", PasswordEntry.Text);
+            //InsertCmd.Parameters.AddWithValue("@FirstName", FirstEntry.Text);
+            //InsertCmd.Parameters.AddWithValue("@LastName", LastEntry.Text);
+
+            connect.Open();
+            InsertCmd.ExecuteNonQuery();
+            connect.Close();
+
+            //User TempUser = new User(EnteredUser, EnteredPassword, EnteredFirst, EnteredLast);
         }
 
     }
