@@ -23,13 +23,30 @@ namespace FirstTest
         public OwnedBooksWindow()
         {
             InitializeComponent();
+            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
 
+            OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+            connect.Open();
+            OleDbCommand RetrieveExistingUsers = new OleDbCommand("SELECT * From TblUsers", connect);
+            OleDbDataReader DataReader = RetrieveExistingUsers.ExecuteReader();
+
+            if (DataReader.HasRows)
+            {
+                while (DataReader.Read())
+                {
+                    string tempUser = DataReader.GetString(1);
+                    loginWindow.PreviousAccountsList.Items.Add(tempUser);
+                }
+            }
+
+            loginWindow.ShowDialog();
+            
         }
     }
 

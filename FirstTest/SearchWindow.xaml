@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="SearchWindow" Height="450" Width="800" MinWidth="620" >
     <Grid>
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="H:\My Pictures\GreyBackground.png"/>
-        </Grid.Background>-->
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\GreyBackground.jpg"/>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MinWidth="40px"/>

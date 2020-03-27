@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800">
     <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\GreyBackground.jpg"/>
+        </Grid.Background>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -27,8 +32,9 @@
         
         
         
-        <ListBox x:Name="PreviousAccountsList" Margin="10,10,10,10"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="7"/>
+        
         <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Previous Accounts"  FontSize="24" TextAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <ListBox x:Name="PreviousAccountsList" Margin="10,10,10,10"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="PreviousAccountsList_MouseDoubleClick" Background="#4CFFFFFF" />
         
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Username:" FontSize="24" Grid.Row="0" Grid.Column="1"/>
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Password:" FontSize="24" Grid.Row="1" Grid.Column="1"/>
@@ -36,17 +42,19 @@
         <TextBlock x:Name="FirstNameText" Margin="5,5" TextWrapping="Wrap" Text="First Name:" FontSize="24" Grid.Row="3" Grid.Column="1" Visibility="Hidden"/>
         <TextBlock x:Name="LastNameText" Margin="5,5" TextWrapping="Wrap" Text="Last Name:" FontSize="24" Grid.Row="4" Grid.Column="1" Visibility="Hidden"/>
 
-        <TextBox x:Name="UsernameEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="2"/>
-        <TextBox x:Name="PasswordEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="PasswordConEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="2" Grid.Column="2" Visibility="Hidden"/>
-        <TextBox x:Name="FirstEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="3" Grid.Column="2" Visibility="Hidden"/>
-        <TextBox x:Name="LastEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="2" Visibility="Hidden"/>
+        <TextBox x:Name="UsernameEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="2" Background="#4CFFFFFF"  MaxLength="20" FontSize="20"/>
+        <PasswordBox x:Name="PasswordEntry" Margin="5,5"  Grid.Row="1" Grid.Column="2" MaxLength="20" Background="#4CFFFFFF"  FontSize="20"/>
+        <PasswordBox x:Name="PasswordConEntry" Margin="5,5"  Grid.Row="2" Grid.Column="2" Visibility="Hidden" Background="#4CFFFFFF" MaxLength="20" FontSize="20"/>
+        <TextBox x:Name="FirstEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="3" Grid.Column="2" Visibility="Hidden" Background="#4CFFFFFF" MaxLength="20" FontSize="20"/>
+        <TextBox x:Name="LastEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="2" Visibility="Hidden" Background="#4CFFFFFF" MaxLength="20" FontSize="20"/>
 
         <TextBlock  Margin="10,10" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" TextAlignment="Center" Foreground="Red" Text="Login not recognized. Please try again or sign up if you are a first time user." Visibility="Hidden"/>
 
         <Button Content="Sign up" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click"/>
-        <Button x:Name="GoToLogin" Content="Back To Login" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click_2" Visibility="Hidden"/>
+        <Button x:Name="GoToLogin" Content="Back To Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click_2" Visibility="Hidden"/>
         <Button x:Name="LoginButton" Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click_1" />
+        
+
 
 
     </Grid>

@@ -8,6 +8,10 @@
         Title="OwnedBooksWindow" Height="450" Width="800">
     <Grid>
 
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\GreyBackground.jpg"/>
+        </Grid.Background>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -28,8 +32,8 @@
         <Button Content="Add New" Grid.Column="3"  />
         <Button Content="Log In / Sign up" Grid.Column="4" Click="Button_Click" />
 
-        <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible"/>
-        <TextBlock x:Name="UserOutput1"  TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="18" TextAlignment="Center" Margin="10,10,10,0"/>
+        <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible" Background="#4CFFFFFF"/>
+        <TextBlock x:Name="UserOutput1" x:FieldModifier="public" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="18" TextAlignment="Center" Margin="10,10,10,0" />
 
 
 
