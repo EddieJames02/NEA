@@ -29,8 +29,9 @@
         <Button Content="Log In / Sign up" Grid.Column="4" Click="Button_Click" />
 
         <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible"/>
+        <TextBlock x:Name="UserOutput1"  TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="18" TextAlignment="Center" Margin="10,10,10,0"/>
 
-        
+
 
 
     </Grid>

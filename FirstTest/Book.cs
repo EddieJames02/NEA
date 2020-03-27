@@ -13,14 +13,16 @@ namespace FirstTest
         string BookAuthor;
         string BookPublisher;
         string BookISBN;
+        int PageTotal;
 
-        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN)
+        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal)
         {
             BookID = bookID;
             BookTitle = bookTitle ?? throw new ArgumentNullException(nameof(bookTitle)); //condensed if statements for checking to see if the returned value is null, return exception stopping program from crashing
             BookAuthor = bookAuthor ?? throw new ArgumentNullException(nameof(bookAuthor));
             BookPublisher = bookPublisher ?? throw new ArgumentNullException(nameof(bookPublisher));
             BookISBN = bookISBN ?? throw new ArgumentNullException(nameof(bookISBN));
+            PageTotal = pageTotal;
         }
         // class constructor
         
@@ -30,6 +32,7 @@ namespace FirstTest
         public string Author { get => BookAuthor; set => BookAuthor = value; }
         public string Publisher { get => BookPublisher; set => BookPublisher = value; }
         public string ISBN { get => BookISBN; set => BookISBN = value; }
+        public int Pages { get => PageTotal; set => PageTotal = value; }
 
         override //overides existing method
         public string ToString()
@@ -38,7 +41,7 @@ namespace FirstTest
         }
         public string ToString2()
         {
-            return $"BookID: {ID.ToString()}\n BookTitle: {Title}\n Author: {Author}\n Publisher: {Publisher}\n ISBN: {ISBN}\n";
+            return $"BookID: {ID.ToString()}\n BookTitle: {Title}\n Author: {Author}\n Publisher: {Publisher}\n ISBN: {ISBN}\n Total Pages: {Pages}";
         }
 
         public static int GetBookIDFromString(string bookString)

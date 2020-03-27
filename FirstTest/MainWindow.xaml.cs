@@ -27,7 +27,7 @@ namespace FirstTest
             InitializeComponent();
         }
 
-        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =H:\A-Levels\computer science\DataTestingWPF\FirstTest\Books.accdb");
+        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =Books.accdb");
         //OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
         List<Book> BookList = new List<Book>();
         OleDbDataAdapter UpdateBooks = new OleDbDataAdapter();
@@ -58,8 +58,9 @@ namespace FirstTest
                     string bookauthor = DataReader.GetString(2);
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
+                    int pageTotal = DataReader.GetInt32(5);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     BookList.Add(TempBook);
 
@@ -141,8 +142,9 @@ namespace FirstTest
                     string bookauthor = DataReader.GetString(2);
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
+                    int pageTotal = DataReader.GetInt32(5);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     listToReturn.Add(TempBook);
                 } 

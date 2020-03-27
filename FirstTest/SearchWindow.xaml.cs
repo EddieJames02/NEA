@@ -78,8 +78,9 @@ namespace FirstTest
                     string bookauthor = DataReader.GetString(2);
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
+                    int pageTotal = DataReader.GetInt32(5);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     TempBookList.Add(TempBook);
                 }
@@ -225,8 +226,9 @@ namespace FirstTest
                     string bookauthor = DataReader.GetString(2);
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
+                    int pageTotal = DataReader.GetInt32(5);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     listToReturn.Add(TempBook);
                 }

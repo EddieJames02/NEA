@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.OleDb;
 
 namespace FirstTest
 {
-    class User
+    public class User
     {
         private string username;
         private string password;
@@ -29,5 +31,7 @@ namespace FirstTest
         public string Surname { get => surname; set => surname = value; }
 
         public int[] FavouriteIDs { get => favouriteIDs; set => favouriteIDs = value; }
+
+        
     }
 }

@@ -32,9 +32,9 @@
         
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Username:" FontSize="24" Grid.Row="0" Grid.Column="1"/>
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Password:" FontSize="24" Grid.Row="1" Grid.Column="1"/>
-        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Confirm Password:" FontSize="24" Grid.Row="2" Grid.Column="1" Visibility="Hidden"/>
-        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="First Name:" FontSize="24" Grid.Row="3" Grid.Column="1" Visibility="Hidden"/>
-        <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Last Name:" FontSize="24" Grid.Row="4" Grid.Column="1" Visibility="Hidden"/>
+        <TextBlock x:Name="PassConText" Margin="5,5" TextWrapping="Wrap" Text="Confirm Password:" FontSize="24" Grid.Row="2" Grid.Column="1" Visibility="Hidden"/>
+        <TextBlock x:Name="FirstNameText" Margin="5,5" TextWrapping="Wrap" Text="First Name:" FontSize="24" Grid.Row="3" Grid.Column="1" Visibility="Hidden"/>
+        <TextBlock x:Name="LastNameText" Margin="5,5" TextWrapping="Wrap" Text="Last Name:" FontSize="24" Grid.Row="4" Grid.Column="1" Visibility="Hidden"/>
 
         <TextBox x:Name="UsernameEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="2"/>
         <TextBox x:Name="PasswordEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="1" Grid.Column="2"/>
@@ -42,10 +42,11 @@
         <TextBox x:Name="FirstEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="3" Grid.Column="2" Visibility="Hidden"/>
         <TextBox x:Name="LastEntry" Margin="5,5" TextWrapping="Wrap"  Grid.Row="4" Grid.Column="2" Visibility="Hidden"/>
 
-        <TextBlock  Margin="10,10" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" TextAlignment="Center" Foreground="Red" ><Run Text="Login not recognized. Please try again or sign up if you are a first time user."/></TextBlock>
+        <TextBlock  Margin="10,10" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Grid.RowSpan="2" TextAlignment="Center" Foreground="Red" Text="Login not recognized. Please try again or sign up if you are a first time user." Visibility="Hidden"/>
 
-        <Button Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click"/>
-        <Button Content="sign up" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" />
+        <Button Content="Sign up" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click"/>
+        <Button x:Name="GoToLogin" Content="Back To Login" Grid.Column="1" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click_2" Visibility="Hidden"/>
+        <Button x:Name="LoginButton" Content="Login" Grid.Column="2" Grid.Row="7" Margin="20,10,20,10" Click="Button_Click_1" />
 
 
     </Grid>
