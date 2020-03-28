@@ -29,6 +29,7 @@
 
         <Grid.Resources>
             <ImageBrush x:Key="x" ImageSource="https://img.icons8.com/ios/1600/xbox-x.png" Stretch="Uniform"/>
+            <ImageBrush x:Key="y" ImageSource="C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\UserAvatar.png" Opacity="0.3"/>
         </Grid.Resources>
 
         <Button Content="Show All" Click="ShowAll_Click" Grid.Row="0" Grid.Column="2" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent" />
@@ -44,16 +45,21 @@
 
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="99"  Height="25"/>
 
-        <Button Content="Scan" Grid.Row="0" Grid.Column="3" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
-        
+        <!--<Button Content="Scan" Grid.Row="0" Grid.Column="3" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>-->
+
         <Button x:Name="OwnedBooks" Content="Owned Books" Grid.Row="0" Grid.Column="1" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent" Click="OwnedBooks_Click"/>
 
         <ListBox x:Name="lstBookList" Grid.Row="2" Grid.ColumnSpan="6" Visibility="Hidden" MinWidth="500" MouseDoubleClick="lstBookList_MouseDoubleClick" Background="Transparent" BorderBrush="#00ABADB3"  >
-             
+
 
         </ListBox>
-        <Button x:Name="BookSearch" Content="Search Books" Grid.Column="4" Click="Button_Click"  Grid.Row="0" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
+        <Button x:Name="BookSearch" Content="Search Books" Grid.Column="3" Click="Button_Click"  Grid.Row="0" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
 
         <Button Name="CloseList" FontSize="30" Grid.Column="5"  Visibility="Hidden" Click="CloseList_Click" BorderThickness="0" Grid.Row="1" Background="{StaticResource x}"/>
+
+
+        <Button x:Name="MainWindowUserButton"  Grid.Column="5" Grid.Row="0" Background="{StaticResource y}" Click="MainWindowUserButton_Click" />
+        <Button x:Name="LogOutButton" Content="Log out" Grid.Row="0" Grid.Column="4" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent" Click="LogOutButton_Click" Visibility="Hidden"/>
+
     </Grid>
 </Window>

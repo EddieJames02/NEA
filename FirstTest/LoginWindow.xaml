@@ -34,8 +34,10 @@
         
         
         <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="Previous Accounts"  FontSize="24" TextAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-        <ListBox x:Name="PreviousAccountsList" Margin="10,10,10,10"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="PreviousAccountsList_MouseDoubleClick" Background="#4CFFFFFF" />
-        
+        <ListBox x:Name="PreviousAccountsList" Margin="10,10,10,10"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="6" MouseDoubleClick="PreviousAccountsList_MouseDoubleClick" Background="#4CFFFFFF" />
+        <CheckBox x:Name="DeleteUsersCheckBox" Content="Delete" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Username:" FontSize="24" Grid.Row="0" Grid.Column="1"/>
         <TextBlock Margin="5,5" TextWrapping="Wrap" Text="Password:" FontSize="24" Grid.Row="1" Grid.Column="1"/>
         <TextBlock x:Name="PassConText" Margin="5,5" TextWrapping="Wrap" Text="Confirm Password:" FontSize="24" Grid.Row="2" Grid.Column="1" Visibility="Hidden"/>

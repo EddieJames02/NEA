@@ -23,30 +23,40 @@ namespace FirstTest
         public OwnedBooksWindow()
         {
             InitializeComponent();
-            
 
+            UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
+            if (CurrentUser.firstName != null)
+            {
+                LoginButton.Visibility = Visibility.Hidden;
+                LogOutButton.Visibility = Visibility.Visible;
+                
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
-
-            OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
-            connect.Open();
-            OleDbCommand RetrieveExistingUsers = new OleDbCommand("SELECT * From TblUsers", connect);
-            OleDbDataReader DataReader = RetrieveExistingUsers.ExecuteReader();
-
-            if (DataReader.HasRows)
-            {
-                while (DataReader.Read())
-                {
-                    string tempUser = DataReader.GetString(1);
-                    loginWindow.PreviousAccountsList.Items.Add(tempUser);
-                }
-            }
-
             loginWindow.ShowDialog();
             
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginButton.Visibility = Visibility.Visible;
+            LogOutButton.Visibility = Visibility.Hidden;
+
+            CurrentUser.Logout();
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    (window as MainWindow).LogOutButton.Visibility = Visibility.Hidden;
+                }
+                
+            }
+
+
         }
     }
 

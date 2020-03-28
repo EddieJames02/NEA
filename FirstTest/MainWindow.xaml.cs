@@ -202,5 +202,26 @@ namespace FirstTest
             OwnedBooks.ShowDialog();
             
         }
+
+        private void MainWindowUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentUser.firstName == null)
+            {
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show($"Current User: {CurrentUser.firstName} {CurrentUser.lastName}");
+            }
+            
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogOutButton.Visibility = Visibility.Hidden;
+            CurrentUser.Logout();
+
+        }
     }
 }

@@ -25,10 +25,26 @@ namespace FirstTest
         public LoginWindow()
         {
             InitializeComponent();
-            
+
+
+            OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+            connect.Open();
+            OleDbCommand RetrieveExistingUsers = new OleDbCommand("SELECT * From TblUsers", connect);
+            OleDbDataReader DataReader = RetrieveExistingUsers.ExecuteReader();
+
+            if (DataReader.HasRows)
+            {
+                while (DataReader.Read())
+                {
+                    string tempUser = DataReader.GetString(1);
+                    PreviousAccountsList.Items.Add(tempUser);
+                }
+            }
+
+
         }
 
-        
+
         OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
         //OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =Books.accdb");
 
@@ -157,9 +173,23 @@ namespace FirstTest
                             CurrentUser.username = RetreievedUserName;
                             CurrentUser.password = RetrievedPassword;
                             CurrentUser.firstName = RetrievedFirstName;
-                            CurrentUser.lastName = RetrievedFirstName;
+                            CurrentUser.lastName = RetrievedLastName;
 
                             //update "Users name" text box displays (application wide)
+                            foreach (Window window in Application.Current.Windows)
+                            {
+                                if (window.GetType() == typeof(OwnedBooksWindow))
+                                {
+                                    (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
+                                    (window as OwnedBooksWindow).LogOutButton.Visibility = Visibility.Visible;
+                                }
+                                else if (window.GetType() == typeof(MainWindow))
+                                {
+                                    (window as MainWindow).LogOutButton.Visibility = Visibility.Visible;
+                                }
+
+                            }
+
                             this.Close();
 
                             
@@ -215,7 +245,33 @@ namespace FirstTest
 
         private void PreviousAccountsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            UsernameEntry.Text = this.PreviousAccountsList.SelectedItem.ToString();
+            if (DeleteUsersCheckBox.IsChecked == true)
+            {
+                MessageBoxResult Result = MessageBox.Show("Delete User?\nThis will delete all user data", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (Result == MessageBoxResult.Yes)
+                {
+                    OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+                    OleDbCommand DeleteUser = new OleDbCommand($"DELETE * FROM TblUsers WHERE Username='" + this.PreviousAccountsList.SelectedItem.ToString()+ "' ", connect);
+                    if (connect.State != ConnectionState.Open)
+                    {
+                        connect.Open(); //Opens data connection
+                    }
+                    DeleteUser.ExecuteNonQuery();
+                    connect.Close();
+
+                    this.PreviousAccountsList.Items.Remove(this.PreviousAccountsList.SelectedItem);
+                }
+            }
+            else
+            {
+                UsernameEntry.Text = this.PreviousAccountsList.SelectedItem.ToString();
+            }
+            
         }
+
+        //private void PreviousAccountsList_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //   
+        //}
     }
 }
