@@ -96,6 +96,7 @@ namespace FirstTest
                         string EnteredFirst = FirstEntry.Text;
                         string EnteredLast = LastEntry.Text;
 
+                        
                         CurrentUser.username = EnteredUser;
                         CurrentUser.password = EnteredPassword;
                         CurrentUser.firstName = EnteredFirst;
@@ -103,6 +104,7 @@ namespace FirstTest
 
                         OleDbCommand InsertCmd = new OleDbCommand("insert into TblUsers ([Username], [Password], [FirstName], [LastName]) values ('" + UsernameEntry.Text + "', '" + PasswordEntry.Password + "', '" + FirstEntry.Text + "','" + LastEntry.Text + "')", connect);
                         InsertCmd.ExecuteNonQuery();
+                        
                         connect.Close();
 
                         this.Close();
@@ -170,6 +172,7 @@ namespace FirstTest
                             string RetrievedFirstName = DataReader.GetString(3);
                             string RetrievedLastName = DataReader.GetString(4);
 
+                            CurrentUser.userID = RetrievedUserID;
                             CurrentUser.username = RetreievedUserName;
                             CurrentUser.password = RetrievedPassword;
                             CurrentUser.firstName = RetrievedFirstName;
@@ -182,6 +185,7 @@ namespace FirstTest
                                 {
                                     (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
                                     (window as OwnedBooksWindow).LogOutButton.Visibility = Visibility.Visible;
+                                    (window as OwnedBooksWindow).LoadOwnedBooks();
                                 }
                                 else if (window.GetType() == typeof(MainWindow))
                                 {
@@ -252,11 +256,13 @@ namespace FirstTest
                 {
                     OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
                     OleDbCommand DeleteUser = new OleDbCommand($"DELETE * FROM TblUsers WHERE Username='" + this.PreviousAccountsList.SelectedItem.ToString()+ "' ", connect);
+                    OleDbCommand DeleteUsersBooks = new OleDbCommand($"DELETE * FROM UserOwnedBooks WHERE Username='" + this.PreviousAccountsList.SelectedItem.ToString() + "' ", connect);
                     if (connect.State != ConnectionState.Open)
                     {
                         connect.Open(); //Opens data connection
                     }
                     DeleteUser.ExecuteNonQuery();
+                    DeleteUsersBooks.ExecuteNonQuery();
                     connect.Close();
 
                     this.PreviousAccountsList.Items.Remove(this.PreviousAccountsList.SelectedItem);

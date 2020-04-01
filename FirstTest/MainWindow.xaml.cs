@@ -159,6 +159,8 @@ namespace FirstTest
 
         }
 
+        
+
         private void lstBookList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (lstBookList.SelectedItem != null)
@@ -170,6 +172,9 @@ namespace FirstTest
                 {
                     Window1 window1 = new Window1();
                     window1.BookInfoDisplay1.AppendText(currentBook.ToString2());
+                    window1.CompletedCheckbox.Visibility = Visibility.Hidden;
+                    
+                    SearchWindow.RetrievedID = Book.GetBookIDFromString(lstBookList.SelectedItem.ToString());
                     window1.ShowDialog();
                     
                 }
@@ -201,6 +206,7 @@ namespace FirstTest
             OwnedBooksWindow OwnedBooks = new OwnedBooksWindow();
             OwnedBooks.ShowDialog();
             
+            
         }
 
         private void MainWindowUserButton_Click(object sender, RoutedEventArgs e)
@@ -213,6 +219,7 @@ namespace FirstTest
             else
             {
                 MessageBox.Show($"Current User: {CurrentUser.firstName} {CurrentUser.lastName}");
+
             }
             
         }

@@ -61,7 +61,7 @@ namespace FirstTest
 
             List<Book> TempBookList = new List<Book>();
 
-            
+
             OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
 
             BookList.Clear();
@@ -238,8 +238,12 @@ namespace FirstTest
 
         }
 
+        static public int RetrievedID;
+
         private void SearchResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
+
             if (connect.State != ConnectionState.Open)
             {
                 connect.Open(); //Opens data connection
@@ -247,13 +251,18 @@ namespace FirstTest
 
             if (SearchResults.SelectedItem != null)
             {
+                
                 List<Book> bookList = QueryDatabase($"SELECT * FROM TblBook WHERE BookID={Book.GetBookIDFromString(SearchResults.SelectedItem.ToString())}");
 
                 foreach (Book currentBook in bookList)
                 {
                     Window1 window1 = new Window1();
+                    window1.CompletedCheckbox.Visibility = Visibility.Hidden;
                     window1.BookInfoDisplay1.AppendText(currentBook.ToString2());
+                    SearchWindow.RetrievedID = Book.GetBookIDFromString(SearchResults.SelectedItem.ToString());
                     window1.ShowDialog();
+
+                    
 
                 }
             }

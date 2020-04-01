@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.OleDb;
+using System.Data;
 
 namespace FirstTest
 {
@@ -14,6 +16,7 @@ namespace FirstTest
         string BookPublisher;
         string BookISBN;
         int PageTotal;
+        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
 
         public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal)
         {
@@ -51,6 +54,9 @@ namespace FirstTest
 
             return int.Parse(bookString.Substring(stringOne, stringTwo - stringOne));
         }
+
+
+        
 
     }
 }

@@ -32,7 +32,7 @@
         <Button Content="Add New" Grid.Column="3"  />
         <Button x:Name="LoginButton" Content="Log In / Sign up" Grid.Column="4" Click="Button_Click" />
 
-        <ListBox x:Name="LocalBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible" Background="#4CFFFFFF"/>
+        <ListBox x:Name="OwnedBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible" Background="#4CFFFFFF" MouseDoubleClick="OwnedBookList_MouseDoubleClick"/>
         <TextBlock x:Name="UserOutput1" x:FieldModifier="public" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="18" TextAlignment="Center" Margin="10,10,10,0" />
         <Button x:Name="LogOutButton" Content="Log out" Grid.Column="4" Click="LogOutButton_Click" Visibility="Hidden" />
 

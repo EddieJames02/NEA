@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Book Information" Height="450" Width="800">
     <Grid>
-                   
+
 
 
         <Grid.ColumnDefinitions>
@@ -28,11 +28,11 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="BookInfoDisplay1"  TextWrapping="Wrap" Margin="10,10,10,10" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Background="{x:Null}" />
-        <Button Grid.Column="0" Grid.Row="0" Margin="20,10,20,10">
-            <!--<Button.Background>
-                <ImageBrush ImageSource="H:\My Pictures\Transparent star.png"/>
-            </Button.Background>-->
-        </Button>
+        <CheckBox x:Name="OwnedCheckbox"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Owned" Click="OwnedCheckbox_Click"/>
+        <CheckBox x:Name="CompletedCheckbox"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Completed" Grid.Column="1" Grid.Row="0" Click="CompletedCheckbox_Click" Visibility="Hidden"/>
+
+
+
 
 
     </Grid>
