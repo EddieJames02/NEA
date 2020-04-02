@@ -39,10 +39,8 @@ namespace FirstTest
 
         public void LoadOwnedBooks()
         {
-            
+            OwnedBookList.Items.Clear();
             connect.Open();
-            Console.WriteLine(SearchWindow.RetrievedID);
-            Console.WriteLine(CurrentUser.userID);
             List<int> RetrievedOwnedBookIDs = new List<int>();
             OleDbCommand GetOwnedBookIDs = new OleDbCommand($"SELECT BookID From UserOwnedBooks WHERE UserID={CurrentUser.userID}", connect);
             OleDbDataReader dataReader = GetOwnedBookIDs.ExecuteReader();
@@ -121,28 +119,8 @@ namespace FirstTest
             
             Window1 OwnedBookInfoWindow = new Window1();
             OwnedBookInfoWindow.CompletedCheckbox.Visibility = Visibility.Visible;
-            OleDbCommand CheckIfCompleted = new OleDbCommand($"SELECT Completed FROM UserOwnedBooks WHERE BookID= {Book.GetBookIDFromString(OwnedBookList.SelectedItem.ToString())}", connect);
-            if (connect.State != ConnectionState.Open)
-            {
-                connect.Open(); //Opens data connection
-            }
-            OleDbDataReader CompletedReader = CheckIfCompleted.ExecuteReader();
-            if (CompletedReader.HasRows)
-            {
-                while (CompletedReader.Read())
-                {
-                    if (CompletedReader.GetBoolean(0) == true)
-                    {
-                        OwnedBookInfoWindow.CompletedCheckbox.IsChecked = true;
-                    }
-                    else
-                    {
-                        OwnedBookInfoWindow.CompletedCheckbox.IsChecked = false;
-                    }
-                }
-            }
-            
-
+            Book.RetrievedID = Book.GetBookIDFromString(OwnedBookList.SelectedItem.ToString());
+            OwnedBookInfoWindow.LoadAll();
             OwnedBookInfoWindow.ShowDialog();
         }
     }

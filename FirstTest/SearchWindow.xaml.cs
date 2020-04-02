@@ -205,40 +205,9 @@ namespace FirstTest
             }
         }
 
-        private List<Book> QueryDatabase(string sql)
-        {
-            OleDbCommand Data = new OleDbCommand(sql, connect);
 
-            if (connect.State == ConnectionState.Closed)
-            {
-                connect.Open(); //Opens data connection
-            }
 
-            OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
-            List<Book> listToReturn = new List<Book>();
-
-            if (DataReader.HasRows)
-            {
-                while (DataReader.Read()) //loops through each row of the returned databse
-                {
-                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
-                    string booktitle = DataReader.GetString(1);
-                    string bookauthor = DataReader.GetString(2);
-                    string bookpublisher = DataReader.GetString(3);
-                    string bookISBN = DataReader.GetString(4);
-                    int pageTotal = DataReader.GetInt32(5);
-
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
-
-                    listToReturn.Add(TempBook);
-                }
-            }
-            connect.Close();
-            return listToReturn;
-
-        }
-
-        static public int RetrievedID;
+        //
 
         private void SearchResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -252,19 +221,15 @@ namespace FirstTest
             if (SearchResults.SelectedItem != null)
             {
                 
-                List<Book> bookList = QueryDatabase($"SELECT * FROM TblBook WHERE BookID={Book.GetBookIDFromString(SearchResults.SelectedItem.ToString())}");
-
-                foreach (Book currentBook in bookList)
-                {
-                    Window1 window1 = new Window1();
-                    window1.CompletedCheckbox.Visibility = Visibility.Hidden;
-                    window1.BookInfoDisplay1.AppendText(currentBook.ToString2());
-                    SearchWindow.RetrievedID = Book.GetBookIDFromString(SearchResults.SelectedItem.ToString());
-                    window1.ShowDialog();
+                Window1 window1 = new Window1();
+                window1.CompletedCheckbox.Visibility = Visibility.Hidden;
+                window1.LoadBasic();
+                Book.RetrievedID = Book.GetBookIDFromString(SearchResults.SelectedItem.ToString());
+                window1.ShowDialog();
 
                     
 
-                }
+                
             }
         }
     }

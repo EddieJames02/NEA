@@ -21,33 +21,124 @@ namespace FirstTest
     /// </summary>
     public partial class Window1 : Window
     {
+        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+
         public Window1()
         {
             InitializeComponent();
+
+        }
+        public void LoadAll()
+        {
+            LoadCompletedCheckbox();
+            LoadExtraDetails();
+            LoadOwnedCheckbox();
+            LoadBookInfo();
+        }
+        public void LoadBasic()
+        {
+            LoadOwnedCheckbox();
+            LoadBookInfo();
+        }
+
+
+
+        public void LoadExtraDetails()
+        {
+            if (connect.State != ConnectionState.Open)
+            {
+                connect.Open(); //Opens data connection
+            }
+            OleDbCommand OwnedCheck = new OleDbCommand($"SELECT * FROM UserOwnedBooks WHERE BookID= {Book.RetrievedID} AND UserID={CurrentUser.userID}", connect);
+
+            OleDbDataReader ownedCheckReader = OwnedCheck.ExecuteReader();
+            DateAddedBlock.Visibility = Visibility.Hidden;
+            if (ownedCheckReader.HasRows)
+            {
+                while (ownedCheckReader.Read())
+                {
+                    string DateAdded = ownedCheckReader.GetDateTime(3).ToString();
+                    PageNoDisplayValue.Text = ownedCheckReader.GetInt32(5).ToString();
+                    PageNoDisplayValue.Visibility = Visibility.Visible;
+                    PageNoDisplay.Visibility = Visibility.Visible;
+
+                    
+                    if (CompletedCheckbox.IsChecked == true)
+                    {
+                        string DateCompleted = ownedCheckReader.GetDateTime(4).ToString();
+                        DateCompletedBlock.Visibility = Visibility.Visible;
+                        DateCompletedBlock.Text = DateCompleted;
+                    }
+                    DateAddedBlock.Visibility = Visibility.Visible;
+                    DateAddedBlock.Text = DateAdded;
+                }
+
+            }
+        }
+
+        public void LoadOwnedCheckbox()
+        {
             if (CurrentUser.username != null)
             {
-                
-                
-                Console.WriteLine(CurrentUser.userID);
-                OleDbCommand OwnedCheck = new OleDbCommand($"SELECT * FROM UserOwnedBooks WHERE BookID= {SearchWindow.RetrievedID} AND UserID={CurrentUser.userID}", connect);
+
                 if (connect.State != ConnectionState.Open)
                 {
                     connect.Open(); //Opens data connection
                 }
+                OleDbCommand OwnedCheck = new OleDbCommand($"SELECT * FROM UserOwnedBooks WHERE BookID= {Book.RetrievedID} AND UserID={CurrentUser.userID}", connect);
+
                 OleDbDataReader ownedCheckReader = OwnedCheck.ExecuteReader();
-                if (ownedCheckReader.HasRows == false)
+                DateAddedBlock.Visibility = Visibility.Hidden;
+                if (ownedCheckReader.HasRows)
                 {
                     OwnedCheckbox.IsChecked = true;
+                    while (ownedCheckReader.Read())
+                    {
+                        string DateAdded = ownedCheckReader.GetDateTime(3).ToString();
+                        DateAddedBlock.Visibility = Visibility.Visible;
+                        DateAddedBlock.Text = DateAdded;
+                    }
+
                 }
                 connect.Close();
             }
-            
         }
 
-        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
-        
+        public void LoadCompletedCheckbox()
+        {
+            OleDbCommand CheckIfCompleted = new OleDbCommand($"SELECT Completed FROM UserOwnedBooks WHERE BookID= {Book.RetrievedID} AND UserID= {CurrentUser.userID}", connect);
+            if (connect.State != ConnectionState.Open)
+            {
+                connect.Open(); //Opens data connection
+            }
+            OleDbDataReader CompletedReader = CheckIfCompleted.ExecuteReader();
+            if (CompletedReader.HasRows)
+            {
+                while (CompletedReader.Read())
+                {
+                    if (CompletedReader.GetBoolean(0) == true)
+                    {
+                        CompletedCheckbox.IsChecked = true;
+                    }
+                    else
+                    {
+                        CompletedCheckbox.IsChecked = false;
+                    }
+                }
+            }
+        }
 
-        
+        public void LoadBookInfo()
+        {
+            List<Book> bookList = Book.QueryDatabase($"SELECT * FROM TblBook WHERE BookID={Book.RetrievedID}");
+            foreach (Book currentBook in bookList)
+            {
+                BookInfoDisplay1.Text = currentBook.ToString2();
+                Book.Maxpages = currentBook.Pages;
+            }
+        }
+
+
         private void OwnedCheckbox_Click(object sender, RoutedEventArgs e)
         {
             if (OwnedCheckbox.IsChecked == true)
@@ -57,10 +148,11 @@ namespace FirstTest
                 //OleDbCommand OwnedBookExistsCheck = new OleDbCommand()
                 if (CurrentUser.username != null)
                 {
-                    
-                    //'" + dateNow.ToString("yyyyMMdd") + "'
-                    OleDbCommand InsertOwnedBook = new OleDbCommand("insert into UserOwnedBooks ([BookID], [UserID], [StartDate]) values ('" + SearchWindow.RetrievedID + "', '" + CurrentUser.userID + "', '" + dateNow + "')", connect);
 
+                    //'" + dateNow.ToString("yyyyMMdd") + "'
+                    OleDbCommand InsertOwnedBook = new OleDbCommand("insert into UserOwnedBooks ([BookID], [UserID], [StartDate]) values ('" + Book.RetrievedID + "', '" + CurrentUser.userID + "', '" + dateNow + "')", connect);
+                    DateAddedBlock.Text = dateNow.ToString();
+                    DateAddedBlock.Visibility = Visibility.Visible;
                     if (connect.State != ConnectionState.Open)
                     {
                         connect.Open(); //Opens data connection
@@ -70,9 +162,10 @@ namespace FirstTest
                 }
                 else
                 {
+                    OwnedCheckbox.IsChecked = false;
                     LoginWindow loginWindow = new LoginWindow();
                     loginWindow.ShowDialog();
-                    OwnedCheckbox.IsChecked = false;
+                    
                 }
             }
             else
@@ -84,9 +177,17 @@ namespace FirstTest
                     {
                         connect.Open(); //Opens data connection
                     }
-                    OleDbCommand DeleteOwnedBook = new OleDbCommand("DELETE * FROM UserOwnedBooks WHERE UserID= '" + SearchWindow.RetrievedID + "' ");
+                    OleDbCommand DeleteOwnedBook = new OleDbCommand($"DELETE * FROM UserOwnedBooks WHERE UserID= {CurrentUser.userID} AND BookID= {Book.RetrievedID}", connect);
                     DeleteOwnedBook.ExecuteNonQuery();
                     connect.Close();
+                    DateAddedBlock.Visibility = Visibility.Hidden;
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.GetType() == typeof(OwnedBooksWindow))
+                        {
+                            (window as OwnedBooksWindow).LoadOwnedBooks();
+                        }
+                    }
                 }
                 else
                 {
@@ -98,7 +199,7 @@ namespace FirstTest
         private void CompletedCheckbox_Click(object sender, RoutedEventArgs e)
         {
             int YesNoValue;
-            OleDbCommand InsertCompleted;
+                     
             if (connect.State != ConnectionState.Open)
             {
                 connect.Open(); //Opens data connection
@@ -106,24 +207,45 @@ namespace FirstTest
 
             if (CompletedCheckbox.IsChecked == true)
             {
-                YesNoValue = -1;
                 DateTime dateNow = DateTime.Now;
-                InsertCompleted = new OleDbCommand($"INSERT INTO UserOwnedBooks ([Completed], [EndDate]) values ({YesNoValue}, {dateNow})", connect);
+                YesNoValue = -1;
+                OleDbCommand InsertCompleted = new OleDbCommand("UPDATE UserOwnedBooks SET Completed= '" + YesNoValue + "', EndDate= '" + dateNow + "', PagesComplete= '" + Book.Maxpages + $"' WHERE UserID= {CurrentUser.userID} AND BookID= {Book.RetrievedID}", connect);
                 InsertCompleted.ExecuteNonQuery();
                 connect.Close();
+                PageNoDisplayValue.Text = Book.Maxpages.ToString();
             }
             else
             {
                 YesNoValue = 0;
-                //InsertCompleted = new OleDbCommand($"INSERT INTO UserOWnedBooks ")
-                //InsertCompleted.ExecuteNonQuery();
+                OleDbCommand InsertCompleted = new OleDbCommand("UPDATE UserOwnedBooks SET Completed= '" + YesNoValue + "', PagesComplete= '" + 0 + $"' WHERE UserID= {CurrentUser.userID} AND BookID= {Book.RetrievedID}", connect);
+                OleDbCommand DeleteEndDate = new OleDbCommand($"DELETE EndDate FROM UserOwnedBooks WHERE UserID= {CurrentUser.userID} AND BookID= {Book.RetrievedID}", connect);
+                InsertCompleted.ExecuteNonQuery();
+                DeleteEndDate.ExecuteNonQuery();
                 connect.Close();
+                PageNoDisplayValue.Text = 0.ToString();
             }
             
             
             
 
 
+        }
+
+        
+
+        private void PageNoDisplayValue_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (int.Parse(PageNoDisplayValue.Text) >= Book.Maxpages)
+            {
+                PageNoDisplayValue.Text = Book.Maxpages.ToString();
+            }
+            else
+            {
+                connect.Open();
+                OleDbCommand InsertPageNo = new OleDbCommand("UPDATE UserOwnedBooks SET PagesComplete=  '" + Book.Maxpages + "'", connect);
+                InsertPageNo.ExecuteNonQuery();
+                connect.Close();
+            }
         }
     }
 }

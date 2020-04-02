@@ -27,8 +27,8 @@ namespace FirstTest
             InitializeComponent();
         }
 
-        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =Books.accdb");
-        //OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+        
         List<Book> BookList = new List<Book>();
         OleDbDataAdapter UpdateBooks = new OleDbDataAdapter();
 
@@ -171,10 +171,9 @@ namespace FirstTest
                 foreach (Book currentBook in bookList)
                 {
                     Window1 window1 = new Window1();
-                    window1.BookInfoDisplay1.AppendText(currentBook.ToString2());
                     window1.CompletedCheckbox.Visibility = Visibility.Hidden;
-                    
-                    SearchWindow.RetrievedID = Book.GetBookIDFromString(lstBookList.SelectedItem.ToString());
+                    window1.LoadBasic();
+                    Book.RetrievedID = Book.GetBookIDFromString(lstBookList.SelectedItem.ToString());
                     window1.ShowDialog();
                     
                 }

@@ -16,7 +16,10 @@ namespace FirstTest
         string BookPublisher;
         string BookISBN;
         int PageTotal;
-        OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+       
+
+        static public int RetrievedID;
+        static public int Maxpages;
 
         public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal)
         {
@@ -56,7 +59,41 @@ namespace FirstTest
         }
 
 
-        
+        public static List<Book> QueryDatabase(string sql)
+        {
+            OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+            OleDbCommand Data = new OleDbCommand(sql, connect);
+
+            if (connect.State == ConnectionState.Closed)
+            {
+                connect.Open(); //Opens data connection
+            }
+
+            OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
+            List<Book> listToReturn = new List<Book>();
+
+            if (DataReader.HasRows)
+            {
+                while (DataReader.Read()) //loops through each row of the returned databse
+                {
+                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
+                    string booktitle = DataReader.GetString(1);
+                    string bookauthor = DataReader.GetString(2);
+                    string bookpublisher = DataReader.GetString(3);
+                    string bookISBN = DataReader.GetString(4);
+                    int pageTotal = DataReader.GetInt32(5);
+
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+
+                    listToReturn.Add(TempBook);
+                }
+            }
+            connect.Close();
+            return listToReturn;
+
+        }
+
+
 
     }
 }

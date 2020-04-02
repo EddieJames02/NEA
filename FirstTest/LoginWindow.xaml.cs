@@ -107,6 +107,7 @@ namespace FirstTest
                         
                         connect.Close();
 
+                        UpdateUserFields();
                         this.Close();
                     }
                     else
@@ -179,20 +180,7 @@ namespace FirstTest
                             CurrentUser.lastName = RetrievedLastName;
 
                             //update "Users name" text box displays (application wide)
-                            foreach (Window window in Application.Current.Windows)
-                            {
-                                if (window.GetType() == typeof(OwnedBooksWindow))
-                                {
-                                    (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
-                                    (window as OwnedBooksWindow).LogOutButton.Visibility = Visibility.Visible;
-                                    (window as OwnedBooksWindow).LoadOwnedBooks();
-                                }
-                                else if (window.GetType() == typeof(MainWindow))
-                                {
-                                    (window as MainWindow).LogOutButton.Visibility = Visibility.Visible;
-                                }
-
-                            }
+                            UpdateUserFields();
 
                             this.Close();
 
@@ -275,9 +263,31 @@ namespace FirstTest
             
         }
 
-        //private void PreviousAccountsList_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //   
-        //}
+        public void UpdateUserFields()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(OwnedBooksWindow))
+                {
+                    (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
+                    (window as OwnedBooksWindow).LogOutButton.Visibility = Visibility.Visible;
+                    (window as OwnedBooksWindow).LoadOwnedBooks();
+                }
+                else if (window.GetType() == typeof(MainWindow))
+                {
+                    (window as MainWindow).LogOutButton.Visibility = Visibility.Visible;
+                }
+                else if (window.GetType() == typeof(Window1))
+                {
+                    (window as Window1).LoadOwnedCheckbox();
+                    //if ((window as Window1).WindowSource.Text == "0")
+                    //{
+                    //    (window as Window1).LoadCompletedCheckbox();
+                    //    (window as Window1).LoadDetails();
+                    //}
+                }
+
+            }
+        }
     }
 }
