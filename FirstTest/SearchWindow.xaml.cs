@@ -79,8 +79,9 @@ namespace FirstTest
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
                     int pageTotal = DataReader.GetInt32(5);
+                    int releaseYear = DataReader.GetInt32(6);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     TempBookList.Add(TempBook);
                 }
@@ -223,6 +224,7 @@ namespace FirstTest
                 
                 Window1 window1 = new Window1();
                 window1.CompletedCheckbox.Visibility = Visibility.Hidden;
+
                 window1.LoadBasic();
                 Book.RetrievedID = Book.GetBookIDFromString(SearchResults.SelectedItem.ToString());
                 window1.ShowDialog();

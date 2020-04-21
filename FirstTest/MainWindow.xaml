@@ -39,11 +39,9 @@
             <ComboBoxItem Content="Author" HorizontalAlignment="Left" Width="158"/>
             <ComboBoxItem Content="Name A-Z" HorizontalAlignment="Left" Width="158"/>
             <ComboBoxItem Content="Name Z-A" HorizontalAlignment="Left" Width="158"/>
-            <ComboBoxItem Content="Finished Books" HorizontalAlignment="Left" Width="158"/>
-            <ComboBoxItem Content="ComboBoxItem" HorizontalAlignment="Left" Width="158"/>
         </ComboBox>
 
-        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="99"  Height="25"/>
+        <Label x:Name="SortBoxLabel" Content="Sort By:" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="99"  Height="25" Visibility="Visible"/>
 
         <!--<Button Content="Scan" Grid.Row="0" Grid.Column="3" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>-->
 

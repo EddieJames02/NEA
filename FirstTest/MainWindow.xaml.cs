@@ -28,47 +28,15 @@ namespace FirstTest
         }
 
         OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+
         
-        List<Book> BookList = new List<Book>();
         OleDbDataAdapter UpdateBooks = new OleDbDataAdapter();
 
 
         private void ShowAll_Click(object sender, RoutedEventArgs e)
         {
-            OleDbCommand Data = new OleDbCommand($"SELECT * FROM TblBook ORDER BY BookID ASC", connect);
-            if (connect.State == ConnectionState.Closed)
-            {
-                connect.Open();
-                //Opens data connection
-            }
-
-            OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
-
-            BookList.Clear();
-            lstBookList.Items.Clear();
-
-            if (DataReader.HasRows)
-            {
-                while (DataReader.Read()) //loops through each row of the returned databse
-                {
-
-
-                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
-                    string booktitle = DataReader.GetString(1);
-                    string bookauthor = DataReader.GetString(2);
-                    string bookpublisher = DataReader.GetString(3);
-                    string bookISBN = DataReader.GetString(4);
-                    int pageTotal = DataReader.GetInt32(5);
-
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
-
-                    BookList.Add(TempBook);
-
-
-
-
-                }
-            }
+            
+            List<Book> BookList = Book.QueryDatabase(($"SELECT * FROM TblBook ORDER BY BookID ASC"));
 
             foreach (Book currentBook in BookList)
             {
@@ -92,7 +60,7 @@ namespace FirstTest
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            SortBoxLabel.Visibility = Visibility.Hidden;
             string userSelection = cmbSort.SelectedValue.ToString().Substring(38);            
 
             switch (userSelection)
@@ -120,44 +88,12 @@ namespace FirstTest
         {
             lstBookList.Items.Clear();
 
-            foreach (Book currentBook in QueryDatabase(sql))
+            foreach (Book currentBook in Book.QueryDatabase(sql))
             {
                 lstBookList.Items.Add(currentBook.ToString());
             }
         }
 
-        private List<Book> QueryDatabase(string sql)
-        {
-            OleDbCommand Data = new OleDbCommand(sql, connect);
-            connect.Open();
-            OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
-            List<Book> listToReturn = new List<Book>();
-
-            if (DataReader.HasRows)
-            {
-                while (DataReader.Read()) //loops through each row of the returned databse
-                {
-                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
-                    string booktitle = DataReader.GetString(1);
-                    string bookauthor = DataReader.GetString(2);
-                    string bookpublisher = DataReader.GetString(3);
-                    string bookISBN = DataReader.GetString(4);
-                    int pageTotal = DataReader.GetInt32(5);
-
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
-
-                    listToReturn.Add(TempBook);
-                } 
-            }
-            connect.Close();
-            return listToReturn;
-            
-        }
-
-        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         
 
@@ -165,7 +101,7 @@ namespace FirstTest
         {
             if (lstBookList.SelectedItem != null)
             {
-                List<Book> bookList = QueryDatabase($"SELECT * FROM TblBook WHERE" +
+                List<Book> bookList = Book.QueryDatabase($"SELECT * FROM TblBook WHERE" +
                     $" BookID={Book.GetBookIDFromString(lstBookList.SelectedItem.ToString())}");
 
                 foreach (Book currentBook in bookList)

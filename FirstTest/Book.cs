@@ -8,27 +8,29 @@ using System.Data;
 
 namespace FirstTest
 {
-    class Book : ScannedItem   
+    class Book : Product   
     {
         int BookID;
         string BookTitle;
         string BookAuthor;
         string BookPublisher;
         string BookISBN;
-        int PageTotal;
+        int BookPageTotal;
+        int BookReleaseYear;
        
 
         static public int RetrievedID;
         static public int Maxpages;
 
-        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal)
+        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal, int releaseYear)
         {
             BookID = bookID;
             BookTitle = bookTitle ?? throw new ArgumentNullException(nameof(bookTitle)); //condensed if statements for checking to see if the returned value is null, return exception stopping program from crashing
             BookAuthor = bookAuthor ?? throw new ArgumentNullException(nameof(bookAuthor));
             BookPublisher = bookPublisher ?? throw new ArgumentNullException(nameof(bookPublisher));
             BookISBN = bookISBN ?? throw new ArgumentNullException(nameof(bookISBN));
-            PageTotal = pageTotal;
+            BookPageTotal = pageTotal;
+            BookReleaseYear = releaseYear;
         }
         // class constructor
         
@@ -38,16 +40,17 @@ namespace FirstTest
         public string Author { get => BookAuthor; set => BookAuthor = value; }
         public string Publisher { get => BookPublisher; set => BookPublisher = value; }
         public string ISBN { get => BookISBN; set => BookISBN = value; }
-        public int Pages { get => PageTotal; set => PageTotal = value; }
+        public int Pages { get => BookPageTotal; set => BookPageTotal = value; }
+        public int ReleaseYear1 { get => BookReleaseYear; set => BookReleaseYear = value; }
 
         override //overides existing method
         public string ToString()
         {
-            return $"BookID: {ID.ToString()}, BookTitle: {Title}, Author: {Author}, Publisher: {Publisher}\n"; //String format for each book
+            return $"BookID: {ID.ToString()}, BookTitle: {Title}, Author: {Author}, Publisher: {Publisher}\n"; //String format for each book when outputted in lists
         }
         public string ToString2()
         {
-            return $"BookID: {ID.ToString()}\n BookTitle: {Title}\n Author: {Author}\n Publisher: {Publisher}\n ISBN: {ISBN}\n Total Pages: {Pages}";
+            return $"BookID: {ID.ToString()}\n BookTitle: {Title}\n Author: {Author}\n Publisher: {Publisher}\n ISBN: {ISBN}\n Total Pages: {Pages}";//string format for each book when outputted in Book information window
         }
 
         public static int GetBookIDFromString(string bookString)
@@ -59,7 +62,7 @@ namespace FirstTest
         }
 
 
-        public static List<Book> QueryDatabase(string sql)
+        public static List<Book> QueryDatabase(string sql) //Returns a list of all the books returned by the inputted SQL statement
         {
             OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
             OleDbCommand Data = new OleDbCommand(sql, connect);
@@ -82,8 +85,9 @@ namespace FirstTest
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
                     int pageTotal = DataReader.GetInt32(5);
+                    int releaseYear = DataReader.GetInt32(6);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     listToReturn.Add(TempBook);
                 }

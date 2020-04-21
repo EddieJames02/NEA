@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace FirstTest
 {
-    class ScannedItem
+    class Product
     {
-        //string DateAdded;
-        //string ImageFileLocation;
-        //bool Favourited;
-        //string ItemType;
+        //DateTime DateAdded;
+        //double ItemPrice;
 
 
     }

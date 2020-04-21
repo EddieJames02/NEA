@@ -133,7 +133,7 @@ namespace FirstTest
             List<Book> bookList = Book.QueryDatabase($"SELECT * FROM TblBook WHERE BookID={Book.RetrievedID}");
             foreach (Book currentBook in bookList)
             {
-                BookInfoDisplay1.Text = currentBook.ToString2();
+                
                 Book.Maxpages = currentBook.Pages;
             }
         }
@@ -242,7 +242,7 @@ namespace FirstTest
             else
             {
                 connect.Open();
-                OleDbCommand InsertPageNo = new OleDbCommand("UPDATE UserOwnedBooks SET PagesComplete=  '" + Book.Maxpages + "'", connect);
+                OleDbCommand InsertPageNo = new OleDbCommand("UPDATE UserOwnedBooks SET PagesComplete=  '" + PageNoDisplayValue.Text + "'", connect);
                 InsertPageNo.ExecuteNonQuery();
                 connect.Close();
             }

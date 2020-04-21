@@ -53,34 +53,13 @@ namespace FirstTest
             }
             foreach (int item in RetrievedOwnedBookIDs)
             {
-                List<Book> TempBookList = new List<Book>();
-                Console.WriteLine(item);
-                OleDbCommand Data = new OleDbCommand($"SELECT * FROM TblBook WHERE BookID={item} ORDER BY BookID ASC", connect);
-
-                OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
 
                 
-
-                if (DataReader.HasRows)
+                foreach (Book currentBook in Book.QueryDatabase($"SELECT * FROM TblBook WHERE BookID={item} ORDER BY BookID ASC"))
                 {
-                    while (DataReader.Read()) //loops through each row of the returned databse
-                    {
-
-
-                        int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
-                        string booktitle = DataReader.GetString(1);
-                        string bookauthor = DataReader.GetString(2);
-                        string bookpublisher = DataReader.GetString(3);
-                        string bookISBN = DataReader.GetString(4);
-                        int pageTotal = DataReader.GetInt32(5);
-
-                        Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
-
-                        OwnedBookList.Items.Add(TempBook.ToString());
-                    }
+                    OwnedBookList.Items.Add(currentBook.ToString());
                 }
 
-                
             }
             connect.Close();
         }
