@@ -33,61 +33,36 @@ namespace FirstTest
         {
             InitializeComponent();
 
-            BookList = FilteredBookList(string.Empty);
+            FillBookList(string.Empty);
 
-            foreach (Book book in BookList)
-            {
-                SearchResults.Items.Add(book.ToString());
-            }
+            
         }
 
-        private List<Book> FilteredBookList(string filter)
+        private void FillBookList(string filter)
         {
             if (connect.State != ConnectionState.Open)
             {
                 connect.Open(); //Opens data connection
             }
-
-            OleDbCommand Data;
+            SearchResults.Items.Clear();
+            string sql;
 
             if (filter.Equals(string.Empty))
             {
-                Data = new OleDbCommand($"SELECT * FROM TblBook ORDER BY BookID ASC", connect);
+                sql = $"SELECT * FROM TblBook ORDER BY BookID ASC";
             }
             else
             {
-                Data = new OleDbCommand($"SELECT * FROM TblBook ORDER BY " + filter, connect);
+                sql = $"SELECT * FROM TblBook ORDER BY " + filter + " ASC";
             }
-
-            List<Book> TempBookList = new List<Book>();
-
-
-            OleDbDataReader DataReader = Data.ExecuteReader(); //executes Command and saves it in DataReader
-
-            BookList.Clear();
-            SearchResults.Items.Clear();
-
-            if (DataReader.HasRows)
+            foreach (Book currentBook in Book.QueryDatabase(sql))
             {
-                while (DataReader.Read()) //loops through each row of the returned databse
-                {
-
-
-                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
-                    string booktitle = DataReader.GetString(1);
-                    string bookauthor = DataReader.GetString(2);
-                    string bookpublisher = DataReader.GetString(3);
-                    string bookISBN = DataReader.GetString(4);
-                    int pageTotal = DataReader.GetInt32(5);
-                    int releaseYear = DataReader.GetInt32(6);
-
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
-
-                    TempBookList.Add(TempBook);
-                }
+                SearchResults.Items.Add(currentBook.ToString());
+                BookList.Add(currentBook);
             }
+            
 
-            return TempBookList;
+            
         }
 
 
@@ -155,8 +130,9 @@ namespace FirstTest
                 //{
                 //    SearchResults.Items.Add(currentBook.ToString());
                 //}
-
+                
                 currentFilter = "Publisher";
+                //FillBookList(currentFilter); unable to get this to work 
             }    
         }
 
