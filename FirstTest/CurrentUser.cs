@@ -12,6 +12,7 @@ namespace FirstTest
 {
     static public class CurrentUser
     {
+        //class attributes
         public static int userID;
         public static string username;
         public static string password;
@@ -21,20 +22,25 @@ namespace FirstTest
         public static OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
 
 
-        static public void Logout()
+        static public void Logout()//Clears all user details from the application associated with the previous user
         {
+            //Default Values for when there is no current user
             userID = -1;
             username = null;
             password = null;
             firstName = null;
             lastName = null;
 
-            foreach (Window window in Application.Current.Windows)
+            foreach (Window window in Application.Current.Windows)//Iterates through each currently open window
             {
 
                 if (window.GetType() == typeof(OwnedBooksWindow))
                 {
-                    (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName;
+                    (window as OwnedBooksWindow).UserOutput1.Text = CurrentUser.firstName + " " + CurrentUser.lastName; 
+                    (window as OwnedBooksWindow).OwnedBookList.Items.Clear();
+                    (window as OwnedBooksWindow).LoginButton.Visibility = Visibility.Visible;
+                    (window as OwnedBooksWindow).LogOutButton.Visibility = Visibility.Hidden;
+
                 }
                 else if (window.GetType() == typeof(MainWindow))
                 {
@@ -44,14 +50,9 @@ namespace FirstTest
 
             }
         }
+        
 
-        static public void LoadOwnedList()
-        {
-            
-            
-        }
-
-        static public void AssignUserID()
+        static public void AssignUserID() //UserID created by database needs to be retrieved when a user creates an account
         {
             if (connect.State != ConnectionState.Open)
             {

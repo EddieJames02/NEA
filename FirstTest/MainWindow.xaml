@@ -51,7 +51,7 @@
 
 
         </ListBox>
-        <Button x:Name="BookSearch" Content="Search Books" Grid.Column="3" Click="Button_Click"  Grid.Row="0" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
+        <Button x:Name="BookSearch" Content="Search Books" Grid.Column="3" Click="SearchButton_Click"  Grid.Row="0" Background="#00DDDDDD" MouseEnter="BookSearch_MouseEvent" MouseLeave="BookSearch_MouseEvent"/>
 
         <Button Name="CloseList" FontSize="30" Grid.Column="5"  Visibility="Hidden" Click="CloseList_Click" BorderThickness="0" Grid.Row="1" Background="{StaticResource x}"/>
 

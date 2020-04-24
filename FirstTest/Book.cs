@@ -10,6 +10,7 @@ namespace FirstTest
 {
     class Book : Product   
     {
+        //class attributes
         int BookID;
         string BookTitle;
         string BookAuthor;
@@ -17,12 +18,14 @@ namespace FirstTest
         string BookISBN;
         int BookPageTotal;
         int BookReleaseYear;
+        int BookOverallRating;
+        int BookNumberOfRatings;
        
 
         static public int RetrievedID;
         static public int Maxpages;
 
-        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal, int releaseYear)
+        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal, int releaseYear, int overallRating, int numberOfRatings)
         {
             BookID = bookID;
             BookTitle = bookTitle ?? throw new ArgumentNullException(nameof(bookTitle)); //condensed if statements for checking to see if the returned value is null, return exception stopping program from crashing
@@ -31,6 +34,8 @@ namespace FirstTest
             BookISBN = bookISBN ?? throw new ArgumentNullException(nameof(bookISBN));
             BookPageTotal = pageTotal;
             BookReleaseYear = releaseYear;
+            BookOverallRating = overallRating;
+            BookNumberOfRatings = numberOfRatings;
         }
         // class constructor
         
@@ -41,19 +46,18 @@ namespace FirstTest
         public string Publisher { get => BookPublisher; set => BookPublisher = value; }
         public string ISBN { get => BookISBN; set => BookISBN = value; }
         public int Pages { get => BookPageTotal; set => BookPageTotal = value; }
-        public int ReleaseYear1 { get => BookReleaseYear; set => BookReleaseYear = value; }
+        public int ReleaseYear { get => BookReleaseYear; set => BookReleaseYear = value; }
+        public int OverallRating { get => BookOverallRating; set => BookOverallRating = value; }
+        public int NumberOfRatings { get => BookNumberOfRatings; set => BookNumberOfRatings = value; }
 
         override //overides existing method
         public string ToString()
         {
-            return $"BookID: {ID.ToString()}, BookTitle: {Title}, Author: {Author}, Publisher: {Publisher}\n"; //String format for each book when outputted in lists
+            return $"BookID: {ID.ToString()}, {Title}\nAuthor: {Author}\nPublisher: {Publisher}\n"; //String format for each book when outputted in lists
         }
-        public string ToString2()
-        {
-            return $"BookID: {ID.ToString()}\n BookTitle: {Title}\n Author: {Author}\n Publisher: {Publisher}\n ISBN: {ISBN}\n Total Pages: {Pages}";//string format for each book when outputted in Book information window
-        }
+        
 
-        public static int GetBookIDFromString(string bookString)
+        public static int GetBookIDFromString(string bookString)//Used for when loading Book information window
         {
             int stringOne = bookString.IndexOf("BookID: ") + 8;
             int stringTwo = bookString.IndexOf(",", stringOne);
@@ -79,15 +83,17 @@ namespace FirstTest
             {
                 while (DataReader.Read()) //loops through each row of the returned databse
                 {
-                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field
+                    int bookid = DataReader.GetInt32(0); //parameter refers to the column/field in the current row of data
                     string booktitle = DataReader.GetString(1);
                     string bookauthor = DataReader.GetString(2);
                     string bookpublisher = DataReader.GetString(3);
                     string bookISBN = DataReader.GetString(4);
                     int pageTotal = DataReader.GetInt32(5);
                     int releaseYear = DataReader.GetInt32(6);
+                    int overallRating = DataReader.GetInt32(7);
+                    int numberOfRatings = DataReader.GetInt32(8);
 
-                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
+                    Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear, overallRating, numberOfRatings); //Creates a temporary object that will be added into the book list (Overwritten by next loop)
 
                     listToReturn.Add(TempBook);
                 }

@@ -27,14 +27,16 @@
             <RowDefinition Height="9*"/>
 
         </Grid.RowDefinitions>
-        
 
-        <Button Content="Add New" Grid.Column="3"  />
-        <Button x:Name="LoginButton" Content="Log In / Sign up" Grid.Column="4" Click="Button_Click" />
+
+        <Button x:Name="AddNewButton" Content="Add New" Grid.Column="3" Background="#00DDDDDD" Click="AddNewButton_Click"  Margin="60,0,0,0"/>
+        <Button x:Name="LoginButton" Content="Log In / Sign up" Grid.Column="4" Click="Login_Click" Background="#00DDDDDD" />
 
         <ListBox x:Name="OwnedBookList"  Margin="10,10,0,10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" Visibility="Visible" Background="#4CFFFFFF" MouseDoubleClick="OwnedBookList_MouseDoubleClick"/>
         <TextBlock x:Name="UserOutput1" x:FieldModifier="public" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" FontSize="18" TextAlignment="Center" Margin="10,10,10,0" />
         <Button x:Name="LogOutButton" Content="Log out" Grid.Column="4" Click="LogOutButton_Click" Visibility="Hidden" />
+        <TextBox x:Name="ISBNEntry" Grid.Column="2" Grid.ColumnSpan="2" Margin="80,10,100,10" Grid.Row="0" TextWrapping="Wrap" Text="" Visibility="Visible" MaxLength="14" TextChanged="ISBNEntry_TextChanged"/>
+        <TextBlock Grid.Column="2" Grid.Row="0" Margin="10,10,80,10" TextWrapping="Wrap" Text="Enter ISBN:"  />
 
 
 

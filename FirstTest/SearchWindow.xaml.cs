@@ -33,12 +33,12 @@ namespace FirstTest
         {
             InitializeComponent();
 
-            FillBookList(string.Empty);
+            FillBookList(string.Empty);//Populates listbox with every book in TblBook
 
             
         }
 
-        private void FillBookList(string filter)
+        private void FillBookList(string filter)//Not fully implemented as having an ordered system inteferred with search filter system
         {
             if (connect.State != ConnectionState.Open)
             {
@@ -66,7 +66,7 @@ namespace FirstTest
         }
 
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)//Refreshes on each new letter
         {
             SearchResults.Items.Clear();
 
@@ -111,7 +111,7 @@ namespace FirstTest
         }
 
 
-        private void PublisherButton_Click(object sender, RoutedEventArgs e)
+        private void PublisherButton_Click(object sender, RoutedEventArgs e)//Selecting the publisher filter
         {
 
             if (PublisherButton.Background == Brushes.Gray)
@@ -121,7 +121,9 @@ namespace FirstTest
             }
             else
             {
-                PublisherButton.Background = Brushes.Gray;
+                PublisherButton.Background = Brushes.Gray;//shows the filter is on
+
+                //ensures all other filters appear as off
                 AuthorButton.Background = Brushes.White;
                 TitleButton.Background = Brushes.White;
 
@@ -131,7 +133,7 @@ namespace FirstTest
                 //    SearchResults.Items.Add(currentBook.ToString());
                 //}
                 
-                currentFilter = "Publisher";
+                currentFilter = "Publisher"; //Assigns filter string to be used in switch statement
                 //FillBookList(currentFilter); unable to get this to work 
             }    
         }
@@ -198,11 +200,11 @@ namespace FirstTest
             if (SearchResults.SelectedItem != null)
             {
                 
-                Window1 window1 = new Window1();
+                BookInformationWindow window1 = new BookInformationWindow();
                 window1.CompletedCheckbox.Visibility = Visibility.Hidden;
-
-                window1.LoadBasic();
                 Book.RetrievedID = Book.GetBookIDFromString(SearchResults.SelectedItem.ToString());
+                window1.LoadBasic();//Loads basic variation of Book information window
+                
                 window1.ShowDialog();
 
                     

@@ -23,5 +23,6 @@ namespace FirstTest
         {
             InitializeComponent();
         }
+        //Attempted to add a Scandit NuGet Package however this resulted in markup issues for every other window.
     }
 }

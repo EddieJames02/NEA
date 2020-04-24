@@ -29,7 +29,7 @@ namespace FirstTest
 
             OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
             connect.Open();
-            OleDbCommand RetrieveExistingUsers = new OleDbCommand("SELECT * From TblUsers", connect);
+            OleDbCommand RetrieveExistingUsers = new OleDbCommand("SELECT * From TblUsers", connect);//Gets list of all usernames in TblUsers
             OleDbDataReader DataReader = RetrieveExistingUsers.ExecuteReader();
 
             if (DataReader.HasRows)
@@ -37,7 +37,7 @@ namespace FirstTest
                 while (DataReader.Read())
                 {
                     string tempUser = DataReader.GetString(1);
-                    PreviousAccountsList.Items.Add(tempUser);
+                    PreviousAccountsList.Items.Add(tempUser);//Adds usernames to the displayed previous accounts list
                 }
             }
 
@@ -46,9 +46,9 @@ namespace FirstTest
 
 
         OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
-        //OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =Books.accdb");
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SignIn_Click(object sender, RoutedEventArgs e)//sign in button click
         {
 
             if (LoginButton.Visibility == Visibility.Hidden)
@@ -59,7 +59,7 @@ namespace FirstTest
                     connect.Open(); //Opens data connection
                 }
 
-                //usercheck
+                //List of existing users with same username
                 OleDbCommand ExistingUserCheck = new OleDbCommand($"SELECT UserID FROM TblUsers WHERE Username= '" + UsernameEntry.Text + "' ", connect);
                 OleDbDataReader DataReader = ExistingUserCheck.ExecuteReader();
 
@@ -70,14 +70,14 @@ namespace FirstTest
                     StrongPassword = true;
                 }
 
-
+                //Ensures no fields are left blank
                 if (UsernameEntry.Text == "" || PasswordEntry.Password == "" || FirstEntry.Text == "" || LastEntry.Text == "")
                 {
                     MessageBox.Show("One or more required fields are blank");
                 }
                 else
                 {
-                    if (PasswordEntry.Password != PasswordConEntry.Password)
+                    if (PasswordEntry.Password != PasswordConEntry.Password)//checks passwords are equal
                     {
                         MessageBox.Show("Passwords do not match");
                         PasswordEntry.Password = "";
@@ -89,7 +89,7 @@ namespace FirstTest
                         PasswordEntry.Password = "";
                         PasswordConEntry.Password = "";
                     }
-                    else if (DataReader.HasRows == false)
+                    else if (DataReader.HasRows == false)//checks if username already existed
                     {
                         string EnteredUser = UsernameEntry.Text;
                         string EnteredPassword = PasswordEntry.Password;
@@ -126,6 +126,7 @@ namespace FirstTest
             }
             else
             {
+                //Makes all fields needed for sign in visible
                 GoToLogin.Visibility = Visibility.Visible;
                 LoginButton.Visibility = Visibility.Hidden;
 
@@ -142,13 +143,13 @@ namespace FirstTest
 
             
 
-            //User TempUser = new User(EnteredUser, EnteredPassword, EnteredFirst, EnteredLast);
+            
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void LogIn_Click(object sender, RoutedEventArgs e)//Login button click
         {
 
-            if (UsernameEntry.Text != "" && PasswordEntry.Password != "")
+            if (UsernameEntry.Text != "" && PasswordEntry.Password != "")//makes sure fields arent empty
             {
                 string EnteredUser = UsernameEntry.Text;
                 string EnteredPassword = PasswordEntry.Password;
@@ -166,7 +167,7 @@ namespace FirstTest
                     while (DataReader.Read()) //loops through each row of the returned databse
                     {
                         string RetrievedPassword = DataReader.GetString(2);
-                        if (RetrievedPassword == EnteredPassword)
+                        if (RetrievedPassword == EnteredPassword) //checks password matches password in database
                         {
                             int RetrievedUserID = DataReader.GetInt32(0);
                             string RetreievedUserName = DataReader.GetString(1);
@@ -182,7 +183,7 @@ namespace FirstTest
                             //update "Users name" text box displays (application wide)
                             UpdateUserFields();
 
-                            this.Close();
+                            this.Close();//closes current window
 
                             
                         }
@@ -211,7 +212,7 @@ namespace FirstTest
 
 
         }
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void GoToLogin_Click(object sender, RoutedEventArgs e)//Allows user to go bakc to login screen
         {
             GoToLogin.Visibility = Visibility.Hidden;
             LoginButton.Visibility = Visibility.Visible;
@@ -242,7 +243,7 @@ namespace FirstTest
                 MessageBoxResult Result = MessageBox.Show("Delete User?\nThis will delete all user data", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (Result == MessageBoxResult.Yes)
                 {
-                    OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
+                    //Deletes the specified user and their owne books from the database
                     OleDbCommand DeleteUser = new OleDbCommand($"DELETE * FROM TblUsers WHERE Username='" + this.PreviousAccountsList.SelectedItem.ToString()+ "' ", connect);
                     OleDbCommand DeleteUsersBooks = new OleDbCommand($"DELETE * FROM UserOwnedBooks WHERE Username='" + this.PreviousAccountsList.SelectedItem.ToString() + "' ", connect);
                     if (connect.State != ConnectionState.Open)
@@ -253,17 +254,17 @@ namespace FirstTest
                     DeleteUsersBooks.ExecuteNonQuery();
                     connect.Close();
 
-                    this.PreviousAccountsList.Items.Remove(this.PreviousAccountsList.SelectedItem);
+                    this.PreviousAccountsList.Items.Remove(this.PreviousAccountsList.SelectedItem);//updates on screen list to not show deleted user
                 }
             }
             else
             {
-                UsernameEntry.Text = this.PreviousAccountsList.SelectedItem.ToString();
+                UsernameEntry.Text = this.PreviousAccountsList.SelectedItem.ToString();//auto fills username text box with the clicked username
             }
             
         }
 
-        public void UpdateUserFields()
+        public void UpdateUserFields() //Update any open fields that should display user details with the relavant user details
         {
             foreach (Window window in Application.Current.Windows)
             {
@@ -277,14 +278,10 @@ namespace FirstTest
                 {
                     (window as MainWindow).LogOutButton.Visibility = Visibility.Visible;
                 }
-                else if (window.GetType() == typeof(Window1))
+                else if (window.GetType() == typeof(BookInformationWindow))
                 {
-                    (window as Window1).LoadOwnedCheckbox();
-                    //if ((window as Window1).WindowSource.Text == "0")
-                    //{
-                    //    (window as Window1).LoadCompletedCheckbox();
-                    //    (window as Window1).LoadDetails();
-                    //}
+                    (window as BookInformationWindow).LoadOwnedCheckbox();//Will mark any open books as owned if necessary
+                    
                 }
 
             }
