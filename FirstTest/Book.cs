@@ -18,14 +18,14 @@ namespace FirstTest
         string BookISBN;
         int BookPageTotal;
         int BookReleaseYear;
-        int BookOverallRating;
+        double BookOverallRating;
         int BookNumberOfRatings;
        
 
         static public int RetrievedID;
         static public int Maxpages;
 
-        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal, int releaseYear, int overallRating, int numberOfRatings)
+        public Book(int bookID, string bookTitle, string bookAuthor, string bookPublisher, string bookISBN, int pageTotal, int releaseYear, double overallRating, int numberOfRatings)
         {
             BookID = bookID;
             BookTitle = bookTitle ?? throw new ArgumentNullException(nameof(bookTitle)); //condensed if statements for checking to see if the returned value is null, return exception stopping program from crashing
@@ -47,7 +47,7 @@ namespace FirstTest
         public string ISBN { get => BookISBN; set => BookISBN = value; }
         public int Pages { get => BookPageTotal; set => BookPageTotal = value; }
         public int ReleaseYear { get => BookReleaseYear; set => BookReleaseYear = value; }
-        public int OverallRating { get => BookOverallRating; set => BookOverallRating = value; }
+        public double OverallRating { get => BookOverallRating; set => BookOverallRating = value; }
         public int NumberOfRatings { get => BookNumberOfRatings; set => BookNumberOfRatings = value; }
 
         override //overides existing method
@@ -90,7 +90,7 @@ namespace FirstTest
                     string bookISBN = DataReader.GetString(4);
                     int pageTotal = DataReader.GetInt32(5);
                     int releaseYear = DataReader.GetInt32(6);
-                    int overallRating = DataReader.GetInt32(7);
+                    double overallRating = DataReader.GetDouble(7);
                     int numberOfRatings = DataReader.GetInt32(8);
 
                     Book TempBook = new Book(bookid, booktitle, bookauthor, bookpublisher, bookISBN, pageTotal, releaseYear, overallRating, numberOfRatings); //Creates a temporary object that will be added into the book list (Overwritten by next loop)

@@ -24,6 +24,7 @@ namespace FirstTest
         //Unable to change file name to "BookInformationWindow" as this was cuasing problems with locating the file
         OleDbConnection connect = new OleDbConnection(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =C:\Users\user\OneDrive - Bridgwater and Taunton College\Project Code\FirstTest\Books.accdb");
         Book DisplayedBook;
+        private int OldNumberOfRatings;
 
         public BookInformationWindow()
         {
@@ -148,7 +149,9 @@ namespace FirstTest
                 Book.Maxpages = currentBook.Pages;
 
                 DisplayedBook = currentBook;
-            }
+                OldNumberOfRatings = DisplayedBook.NumberOfRatings;
+
+    }
         }
 
         private int previousSliderValue;
@@ -290,8 +293,8 @@ namespace FirstTest
             
         }
 
-        
 
+        
         private void RatingSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (connect.State != ConnectionState.Open)
@@ -299,7 +302,7 @@ namespace FirstTest
                 connect.Open(); //Opens data connection
             }
 
-            int OldNumberOfRatings = DisplayedBook.NumberOfRatings;
+            
             if (previousSliderValue == 0)
             {
                 //increments number of ratings if last rating was 0
@@ -322,7 +325,7 @@ namespace FirstTest
 
 
             //Calculates new overall rating
-            int NewOverallRating = ((DisplayedBook.OverallRating * OldNumberOfRatings) + (int)RatingSlider.Value) / DisplayedBook.NumberOfRatings;
+            double NewOverallRating = ((DisplayedBook.OverallRating * OldNumberOfRatings) + RatingSlider.Value) / (DisplayedBook.NumberOfRatings);
 
             OleDbCommand UpdateOverallRating = new OleDbCommand($"UPDATE TblBook SET OverallRating= {NewOverallRating} WHERE BookID= {Book.RetrievedID}", connect);//Creates a average of all the ratings for that book
             UpdateOverallRating.ExecuteNonQuery();//updates table with new overall rating
